@@ -9,9 +9,9 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
-            background-color: #0a0a0a; /* Deep Black */
-            color: #f0f0f0; /* Off-white for readability */
-            font-family: 'Courier New', Courier, monospace; /* Script-style font */
+            background-color: #050505; /* Near Black */
+            color: #e0e0e0; 
+            font-family: 'Courier New', Courier, monospace; /* Terminal/Code aesthetic */
             line-height: 1.6;
             display: flex;
             flex-direction: column;
@@ -21,23 +21,35 @@
         /* TYPOGRAPHY */
         h1 {
             font-size: 2.5rem;
-            letter-spacing: 2px;
-            font-weight: normal;
+            letter-spacing: 4px;
+            font-weight: bold;
             text-transform: uppercase;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
 
         h2 {
-            font-size: 1.2rem;
-            color: #888;
+            font-size: 1rem;
+            color: #666;
             font-weight: normal;
-            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid #333;
+            display: inline-block;
+            padding-bottom: 5px;
         }
 
-        p { margin-bottom: 1.5rem; max-width: 600px; }
+        h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
 
-        a { color: #fff; text-decoration: underline; text-decoration-color: #555; transition: 0.3s; }
-        a:hover { color: #ccc; text-decoration-color: #fff; }
+        p { margin-bottom: 1.5rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+        a { color: #fff; text-decoration: none; transition: 0.3s; }
+        a:hover { color: #aaa; }
 
         /* LAYOUT */
         .container {
@@ -50,47 +62,58 @@
             padding: 2rem;
         }
 
-        /* HERO VISUAL (Placeholder for a showreel or image) */
-        .lens-ring {
-            width: 150px;
-            height: 150px;
-            border: 2px solid #333;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* HERO VISUAL: The "Digital Pixel" Icon */
+        .pixel-icon {
+            width: 120px;
+            height: 120px;
+            background: 
+                linear-gradient(to right, #333 1px, transparent 1px),
+                linear-gradient(to bottom, #333 1px, transparent 1px);
+            background-size: 10px 10px;
+            border: 2px solid #fff;
             margin-bottom: 2rem;
-            position: relative;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        /* PROJECT LIST */
+        .project-list {
+            list-style: none;
+            margin-top: 2rem;
+            border-top: 1px solid #222;
+            padding-top: 2rem;
+            width: 100%;
+            max-width: 400px;
         }
         
-        /* Subtle animation for the lens */
-        .lens-ring::after {
-            content: '';
-            width: 130px;
-            height: 130px;
-            border: 1px solid #555;
-            border-radius: 50%;
-            position: absolute;
+        .project-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+        }
+
+        .status {
+            color: #555;
+            font-size: 0.8rem;
         }
 
         /* FOOTER */
         footer {
             padding: 2rem;
             text-align: center;
-            font-size: 0.8rem;
-            color: #444;
-            border-top: 1px solid #1a1a1a;
+            font-size: 0.7rem;
+            color: #333;
         }
 
         /* UTILITY */
         .btn {
             display: inline-block;
             border: 1px solid #fff;
-            padding: 10px 20px;
-            text-decoration: none;
+            padding: 12px 25px;
             text-transform: uppercase;
-            font-size: 0.9rem;
-            margin-top: 1rem;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            margin-top: 2rem;
         }
         .btn:hover {
             background: #fff;
@@ -100,29 +123,39 @@
         /* RESPONSIVE */
         @media (max-width: 600px) {
             h1 { font-size: 1.8rem; }
-            .lens-ring { width: 100px; height: 100px; }
-            .lens-ring::after { width: 80px; height: 80px; }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="lens-ring"></div>
+        <div class="pixel-icon"></div>
 
-        <h1>Panchromatic Studios</h1>
-        <h2>Film • Television • Production</h2>
+        <h1>Panchromatic</h1>
+        <h2>Independent Game Studio</h2>
 
         <p>
-            Visual storytelling with a focus on technical precision. 
-            From custom cinema robotics to narrative production.
+            Crafting immersive digital worlds. <br>
+            Focusing on atmospheric gameplay and emergent mechanics.
         </p>
 
-        <a href="mailto:contact@panchromaticstudios.com" class="btn">Contact Us</a>
+        <ul class="project-list">
+            <li>
+                <span>Pocket Arboretum</span>
+                <span class="status">[In Development]</span>
+            </li>
+            <li>
+                <span>Project: Unannounced</span>
+                <span class="status">[Prototyping]</span>
+            </li>
+        </ul>
+
+        <a href="mailto:contact@panchromaticstudios.com" class="btn">Get in Touch</a>
     </div>
 
     <footer>
-        &copy; 2026 Panchromatic Studios. All rights reserved.
+        &copy; 2026 Panchromatic Studios. <br>
+        Built with Godot & Unreal Engine technology.
     </footer>
 
 </body>
