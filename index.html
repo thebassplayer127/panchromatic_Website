@@ -4,159 +4,398 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panchromatic Studios</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <style>
         /* RESET & BASICS */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
-            background-color: #050505; /* Near Black */
-            color: #e0e0e0; 
-            font-family: 'Courier New', Courier, monospace; /* Terminal/Code aesthetic */
+            background-color: #0c0c0c; /* Deep Charcoal */
+            color: #dcdcdc; /* High contrast off-white */
+            font-family: 'Poppins', sans-serif;
             line-height: 1.6;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
 
-        /* TYPOGRAPHY */
-        h1 {
-            font-size: 2.5rem;
-            letter-spacing: 4px;
-            font-weight: bold;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        /* NAVIGATION BAR */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background-color: rgba(12, 12, 12, 0.95);
+            border-bottom: 1px solid #2a2a2a;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        h2 {
-            font-size: 1rem;
-            color: #666;
-            font-weight: normal;
-            text-transform: uppercase;
+        .nav-brand {
+            font-weight: 700;
             letter-spacing: 2px;
-            margin-bottom: 3rem;
-            border-bottom: 1px solid #333;
-            display: inline-block;
-            padding-bottom: 5px;
+            color: #fff;
+            font-size: 1.2rem;
         }
 
-        h3 {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
+        .nav-brand span { color: #f26522; } /* Accent color on the brand */
+
+        .nav-links button {
+            background: none;
+            border: none;
+            color: #888;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-left: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+            text-transform: uppercase;
+        }
+
+        .nav-links button:hover, .nav-links button.active {
             color: #fff;
         }
 
-        p { margin-bottom: 1.5rem; max-width: 600px; margin-left: auto; margin-right: auto; }
-
-        a { color: #fff; text-decoration: none; transition: 0.3s; }
-        a:hover { color: #aaa; }
-
-        /* LAYOUT */
-        .container {
+        /* PAGE ROUTING LOGIC */
+        main {
             flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .page {
+            display: none; /* Hidden by default */
+            padding: 4rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .page.active {
+            display: block; /* Shown when active */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* HOME SECTION (Centered) */
+        #home.active {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 2rem;
         }
 
-        /* HERO VISUAL: The "Digital Pixel" Icon */
-        .pixel-icon {
-            width: 120px;
-            height: 120px;
-            background: 
-                linear-gradient(to right, #333 1px, transparent 1px),
-                linear-gradient(to bottom, #333 1px, transparent 1px);
-            background-size: 10px 10px;
-            border: 2px solid #fff;
+        /* REFINED LOGO VISUAL */
+        .logo-visual {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
             margin-bottom: 2rem;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 320px;
+        }
+        .color-bars { display: flex; height: 100px; }
+        .bar { flex: 1; height: 100%; }
+        .gray-bars { display: flex; height: 40px; margin-top: -1px; }
+        
+        /* LOGO TEXT */
+        .logo-text {
+            font-weight: 700;
+            font-size: 2.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 480px;
+        }
+        .letter-p { color: #e1211b; } 
+        .letter-a { color: #f26522; } 
+        .letter-n { color: #ffca21; } 
+        .letter-c { color: #8ec63f; } 
+        .letter-h { color: #0fa24e; } 
+        .letter-r { color: #1fb9cb; } 
+        .letter-o { color: #0076a3; } 
+        .letter-m { color: #5142a5; } 
+        .letter-a2 { color: #9c2e91; } 
+        .letter-t { color: #ed2173; } 
+        .letter-i { color: #e1211b; } 
+        .letter-c2 { color: #f26522; } 
+
+        h2.studio-tagline {
+            font-size: 1rem;
+            color: #6a6a6a;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 3rem;
+        }
+
+        p.intro {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin-bottom: 3rem;
+            color: #b0b0b0;
         }
 
         /* PROJECT LIST */
         .project-list {
             list-style: none;
-            margin-top: 2rem;
-            border-top: 1px solid #222;
-            padding-top: 2rem;
             width: 100%;
-            max-width: 400px;
+            max-width: 500px;
+            margin-top: 2rem;
+            border-top: 1px solid #2a2a2a;
+            padding-top: 2rem;
+            color: #888;
         }
-        
         .project-list li {
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            font-size: 1rem;
+        }
+        .status {
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 4px;
+        }
+        .status.in-development { color: #fff; background-color: #5142a5; }
+        .status.prototyping { color: #fff; background-color: #0076a3; }
+
+        /* OTHER PAGES TYPOGRAPHY (About & Dev Log) */
+        .page h3 {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #2a2a2a;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+        .page p { margin-bottom: 1.5rem; color: #b0b0b0; }
+        
+        /* DEV LOG ENTRIES */
+        .log-entry {
+            background-color: #111;
+            border: 1px solid #2a2a2a;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 4px;
+        }
+        .log-date {
+            font-family: monospace;
+            color: #f26522;
             font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        .log-entry h4 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #e0e0e0;
         }
 
-        .status {
-            color: #555;
-            font-size: 0.8rem;
+        /* UTILITY */
+        .btn {
+            display: inline-block;
+            border: 2px solid transparent;
+            padding: 12px 25px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-top: 2rem;
+            transition: 0.3s;
+            text-decoration: none;
+            border-radius: 4px;
+            background: linear-gradient(to right, #1fb9cb, #9c2e91);
+            color: #fff;
+        }
+        .btn:hover {
+            transform: scale(1.03);
+            background: linear-gradient(to right, #1fb9cb, #9c2e91, #1fb9cb);
         }
 
         /* FOOTER */
         footer {
             padding: 2rem;
             text-align: center;
-            font-size: 0.7rem;
-            color: #333;
-        }
-
-        /* UTILITY */
-        .btn {
-            display: inline-block;
-            border: 1px solid #fff;
-            padding: 12px 25px;
-            text-transform: uppercase;
             font-size: 0.8rem;
-            letter-spacing: 1px;
-            margin-top: 2rem;
-        }
-        .btn:hover {
-            background: #fff;
-            color: #000;
+            color: #444;
+            border-top: 1px solid #1a1a1a;
         }
 
         /* RESPONSIVE */
         @media (max-width: 600px) {
-            h1 { font-size: 1.8rem; }
+            .navbar { flex-direction: column; gap: 1rem; }
+            .nav-links button { margin: 0 0.5rem; }
+            .logo-text { font-size: 1.8rem; letter-spacing: 1px; }
+            h2.studio-tagline { font-size: 0.8rem; letter-spacing: 3px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="pixel-icon"></div>
+    <!-- TOP NAVIGATION -->
+    <nav class="navbar">
+        <div class="nav-brand">PANCHROMATIC<span>.</span></div>
+        <div class="nav-links">
+            <button onclick="nav('home')" class="active" id="btn-home">Home</button>
+            <button onclick="nav('about')" id="btn-about">About</button>
+            <button onclick="nav('devlog')" id="btn-devlog">Dev Log</button>
+        </div>
+    </nav>
 
-        <h1>Panchromatic</h1>
-        <h2>Independent Game Studio</h2>
+    <main>
+        <!-- HOME PAGE -->
+        <section id="home" class="page active">
+            <div class="logo-visual">
+                <div class="color-bars">
+                    <div class="bar" style="background-color: #e1211b;"></div>
+                    <div class="bar" style="background-color: #f26522;"></div>
+                    <div class="bar" style="background-color: #ffca21;"></div>
+                    <div class="bar" style="background-color: #8ec63f;"></div>
+                    <div class="bar" style="background-color: #0fa24e;"></div>
+                    <div class="bar" style="background-color: #1fb9cb;"></div>
+                    <div class="bar" style="background-color: #0076a3;"></div>
+                    <div class="bar" style="background-color: #5142a5;"></div>
+                    <div class="bar" style="background-color: #9c2e91;"></div>
+                    <div class="bar" style="background-color: #ed2173;"></div>
+                    <div class="bar" style="background-color: #e1211b;"></div>
+                    <div class="bar" style="background-color: #f26522;"></div>
+                </div>
+                <div class="gray-bars">
+                    <div class="bar" style="background-color: #3a3a3a;"></div>
+                    <div class="bar" style="background-color: #5a5a5a;"></div>
+                    <div class="bar" style="background-color: #7a7a7a;"></div>
+                    <div class="bar" style="background-color: #9a9a9a;"></div>
+                    <div class="bar" style="background-color: #b0b0b0;"></div>
+                    <div class="bar" style="background-color: #c0c0c0;"></div>
+                    <div class="bar" style="background-color: #d0d0d0;"></div>
+                    <div class="bar" style="background-color: #c0c0c0;"></div>
+                    <div class="bar" style="background-color: #b0b0b0;"></div>
+                    <div class="bar" style="background-color: #9a9a9a;"></div>
+                    <div class="bar" style="background-color: #7a7a7a;"></div>
+                    <div class="bar" style="background-color: #5a5a5a;"></div>
+                </div>
+            </div>
 
-        <p>
-            Crafting immersive digital worlds. <br>
-            Focusing on atmospheric gameplay and emergent mechanics.
-        </p>
+            <h1 class="logo-text">
+                <span class="letter-p">P</span>
+                <span class="letter-a">A</span>
+                <span class="letter-n">N</span>
+                <span class="letter-c">C</span>
+                <span class="letter-h">H</span>
+                <span class="letter-r">R</span>
+                <span class="letter-o">O</span>
+                <span class="letter-m">M</span>
+                <span class="letter-a2">A</span>
+                <span class="letter-t">T</span>
+                <span class="letter-i">I</span>
+                <span class="letter-c2">C</span>
+            </h1>
 
-        <ul class="project-list">
-            <li>
-                <span>Pocket Arboretum</span>
-                <span class="status">[In Development]</span>
-            </li>
-            <li>
-                <span>Project: Unannounced</span>
-                <span class="status">[Prototyping]</span>
-            </li>
-        </ul>
+            <h2 class="studio-tagline">STUDIOS</h2>
 
-        <a href="mailto:contact@panchromaticstudios.com" class="btn">Get in Touch</a>
-    </div>
+            <p class="intro">
+                Crafting immersive digital experiences. Focusing on atmospheric game design and emergent technical mechanics.
+            </p>
+
+            <ul class="project-list">
+                <li>
+                    <span>Project Splatter</span>
+                    <span class="status in-development">[In Development]</span>
+                </li>
+                <li>
+                    <span>Project: Unannounced</span>
+                    <span class="status prototyping">[Prototyping]</span>
+                </li>
+            </ul>
+
+            <a href="mailto:dev.panchromatic@gmail.com" class="btn">Connect</a>
+        </section>
+
+        <!-- ABOUT PAGE -->
+        <section id="about" class="page">
+            <h3>About the Studio</h3>
+            <p>
+                Panchromatic Studios is an independent team focused on blending high-fidelity technical concepts with engaging gameplay and strong narratives.
+            </p>
+            <p>
+                The name "Panchromatic" originates from black-and-white photographic film that is sensitive to all visible colors of the spectrum. We take a similar approach: capturing the full spectrum of art, code, and narrative, while remaining strictly "black and white" with our business model. 
+            </p>
+            <p>
+                We believe games should be fun. A sense of accomplishment should come from playing the game, not from opening your wallet. Games are a multidisciplinary art form made by people. For us, AI is a tool in the creator's toolbox—used to help artists and developers achieve more, not to replace them.
+            </p>
+            <br>
+            <h3>Our Tech</h3>
+            <p>
+                We build primarily utilizing modern engines (Godot & Unreal Engine) alongside custom tooling designed to push our creative boundaries.
+            </p>
+        </section>
+
+        <!-- DEV LOG PAGE -->
+        <section id="devlog" class="page">
+            <h3>Developer Logs</h3>
+            <p>Notes, updates, and deep-dives from the development trenches.</p>
+            <br>
+            
+            <!-- Example Entry 1 -->
+            <div class="log-entry">
+                <span class="log-date">October 2025</span>
+                <h4>Project Splatter: Early Prototyping</h4>
+                <p>
+                    Development on Project Splatter is officially underway. More to come. 
+                </p>
+            </div>
+
+            <!-- Example Entry 2 -->
+            <div class="log-entry">
+                <span class="log-date">JANUARY - MARCH 2026</span>
+                <h4>Studio Infrastructure</h4>
+                <p>
+                    Getting the core tools in place. We are finalizing our version control pipeline and locking in our collaborative environment.
+                </p>
+            </div>
+        </section>
+
+    </main>
 
     <footer>
-        &copy; 2026 Panchromatic Studios. <br>
-        Built with Godot & Unreal Engine technology.
+        &copy; 2026 Panchromatic Studios&trade;.<br>
+        <span style="font-size: 0.75rem; margin-top: 10px; display: inline-block;">
+            Panchromatic Studios is an AFX Labs LLC company. <a href="https://floriomedia.com" target="_blank" style="color: inherit; text-decoration: underline;">Floriomedia.com</a>
+        </span>
     </footer>
 
+    <!-- NAVIGATION SCRIPT -->
+    <script>
+        function nav(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            // Remove active state from all buttons
+            document.querySelectorAll('.nav-links button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show the target page and highlight the button
+            document.getElementById(pageId).classList.add('active');
+            document.getElementById('btn-' + pageId).classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
